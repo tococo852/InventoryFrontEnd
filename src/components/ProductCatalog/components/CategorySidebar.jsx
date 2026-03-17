@@ -2,7 +2,6 @@ import catalog from '../assets/catalog.json'
 import { CheckboxGroup } from '@radix-ui/themes'
 
 const CategorySidebar = ({ categoryFilter, setCategoryFilter }) => {
-    console.log(categoryFilter)
   return (
     <CheckboxGroup.Root
       value={categoryFilter}

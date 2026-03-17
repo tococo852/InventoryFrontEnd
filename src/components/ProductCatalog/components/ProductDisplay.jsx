@@ -21,7 +21,6 @@ const matchCategories=(arr1,arr2)=>{
 }
 
 const ProductDisplay=({searchFilter, setSearchFilter,categoryFilter })=>{
-    const {cart, setCart} =useCart()
     const itemsPerPage=12
     const [currentPage, setCurrentPage] = useState(1)
     const start= (currentPage-1) * itemsPerPage
