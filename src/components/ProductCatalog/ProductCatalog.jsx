@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import CategorySidebar from "./components/CategorySidebar";
 import ProductDisplay from "./components/ProductDisplay";
+import { useNavigate } from "react-router";
 
 const CatalogLayout = styled.div`
   display: flex;
@@ -37,6 +38,7 @@ const Content = styled.main`
 const ProductCatalog = () => {
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [searchFilter, setSearchFilter] = useState("");
+  const navigate=useNavigate()
 
   return (
     <CatalogLayout>
@@ -53,6 +55,7 @@ const ProductCatalog = () => {
       </Sidebar>
 
       <Content>
+        <button onClick={()=>navigate('/itemForm')}>addItem</button>
         <ProductDisplay
           searchFilter={searchFilter}
           setSearchFilter={setSearchFilter}

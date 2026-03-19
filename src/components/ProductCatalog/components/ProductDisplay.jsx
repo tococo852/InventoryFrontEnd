@@ -1,6 +1,6 @@
-import useCart from "../../../App/context/cart/useCart"
+//import useCart from "../../../App/context/cart/useCart"
 import ProductCard from "./ProductCard"
-import catalog from '../assets/catalog.json'
+import useCatalog from '../../../App/context/catalog/useCatalog'
 import { Button, Grid } from "@radix-ui/themes"
 import { useState } from "react"
 import styled from "styled-components"
@@ -21,6 +21,7 @@ const matchCategories=(arr1,arr2)=>{
 }
 
 const ProductDisplay=({searchFilter, setSearchFilter,categoryFilter })=>{
+    const { catalog } = useCatalog()
     const itemsPerPage=12
     const [currentPage, setCurrentPage] = useState(1)
     const start= (currentPage-1) * itemsPerPage
@@ -50,7 +51,7 @@ const ProductDisplay=({searchFilter, setSearchFilter,categoryFilter })=>{
         {
             pageItems.length>0?(
                  pageItems.map(item=>(
-            <ProductCard key= {item.ID} itemInfo={item}/>
+            <ProductCard key= {item.id} itemInfo={item}/>
         ))
             ):(
                 <div>

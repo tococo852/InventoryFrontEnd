@@ -12,7 +12,7 @@ const ProductCard=({itemInfo})=>{
         <Text as="div" size="2" weight="bold">
 			{itemInfo.name}
 		</Text>  
-		<Link to={`/catalog/${itemInfo.ID}`}>
+		<Link to={`/catalog/${itemInfo.id}`}>
 			<img src="" alt="" style={{height:"8em", width:"8em"}} />
 		</Link>	
 		
@@ -35,7 +35,7 @@ const ProductCard=({itemInfo})=>{
 			</IconButton>
 
 			<Button size="2" variant="outline">
-				<Link to={`/catalog/${itemInfo.ID}`}
+				<Link to={`/catalog/${itemInfo.id}`}
 				    style={{ color: "inherit", textDecoration: "none" }}
 					>
 

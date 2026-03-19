@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Theme } from "@radix-ui/themes";
 import { Outlet } from "react-router";
 import CartProvider from './context/cart/CartContextProvider';
+import CatalogProvider from './context/catalog/CatalogContextProvider';
 import './App.css'
 
 const Wrapper = styled.div`
@@ -18,11 +19,13 @@ function App() {
   return (
     <Theme accentColor="amber" grayColor="sand" radius="large" scaling="95%">
       <CartProvider>
+        <CatalogProvider>
         <Wrapper>
           <Header />
           <Outlet />
           <Footer />
         </Wrapper>
+        </CatalogProvider>
       </CartProvider>
     </Theme>
   );

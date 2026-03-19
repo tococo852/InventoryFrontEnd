@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
-import catalog from "../assets/catalog.json";
+import useCatalog from '../../../App/context/catalog/useCatalog'
+
 import {
   Container,
   Box,
@@ -14,10 +15,11 @@ import { useNavigate } from "react-router";
 import CartAddPopUp from "../../CartAddPopUp/CartAddPopUP";
 import { useState } from "react";
 const ProductInfo = () => {
+  const {catalog}=useCatalog()
   const navigate=useNavigate()
   const { productId } = useParams();
   const product = catalog.inventory.find(
-    item => item.ID === Number(productId)
+    item => item.id === Number(productId)
   );
   
   const [displayCartPopUp,setDisplayCartPopUp] = useState()

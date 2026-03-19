@@ -4,6 +4,7 @@ import ProductInfo from "../components/ProductCatalog/components/ProductInfo.jsx
 import CartCheckout from "../components/CartCheckout/CartCheckout.jsx";
 import App from "./App.jsx";
 import ErrorPage from "../components/ErrorPage/ErrorPage.jsx";
+import ItemDataForm from "../components/ItemDataForm/ItemDataForm.jsx";
 import { Navigate } from "react-router";
 const routes = [
   {
@@ -30,6 +31,14 @@ const routes = [
       {
         path:'/checkout',
         element: <CartCheckout/>
+      },
+      {
+        path:'/itemForm',
+        element:<ItemDataForm/>
+      },
+      {
+        path:'/itemForm/:itemId',
+        element:<ItemDataForm/>
       }
 
     ]
