@@ -59,8 +59,8 @@ const ItemDataForm=()=>{
 
                 <label>Measure</label>
                 <Select.Root 
-                defaultValue={measures[0]?.id} 
-                onValueChange={(val) => setFormData(prev => ({...prev, measure_id: val}))}
+                value={String(formData.measure_id)}
+                onValueChange={(val) => setFormData(prev => ({ ...prev, measure_id: val }))}
                 >
                 <Select.Trigger />
                 <Select.Content>
@@ -77,6 +77,8 @@ const ItemDataForm=()=>{
 
                 <button type="submit">Submit</button>
             </form>
+
+            <button onClick={()=>{console.log(formData)}}>display</button>
             </div>
     
     
