@@ -13,7 +13,7 @@ import {
 import { useNavigate } from "react-router";
 const ItemDataForm=()=>{
     const navigate=useNavigate()
-    const {addItem,measures}=useCatalog()
+    const {addItem,measures,catalog}=useCatalog()
     const [formData, setFormData] = useState({
     name: '',
     price: 0,
@@ -22,7 +22,8 @@ const ItemDataForm=()=>{
     description: '',
     image_url: '',
     quantity: 0,
-    stock: 0
+    stock: 0,
+    category_id: ''
     }) 
 
     const handleChange= (e)=>{
@@ -75,6 +76,23 @@ const ItemDataForm=()=>{
                 </Select.Content>
                 </Select.Root>
 
+                
+                <Select.Root 
+                value=''
+                onValueChange={(val) => setFormData(prev => ({ ...prev, category_id: val }))}
+                >
+                <Select.Trigger />
+                <Select.Content>
+                    <Select.Group>
+                    <Select.Label>Categories</Select.Label>
+                    {catalog.categories.map(category => (
+                        <Select.Item key={category.id} value={String(category.id)}>
+                        {category.name}
+                        </Select.Item>
+                    ))}
+                    </Select.Group>
+                </Select.Content>
+                </Select.Root>
                 <button type="submit">Submit</button>
             </form>
 
