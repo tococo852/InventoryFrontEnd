@@ -35,6 +35,13 @@ const ItemDataForm=()=>{
     const handleSubmit= async (e)=>{
         e.preventDefault()
 
+        if (itemId){
+            //update
+        }
+        else{
+            //create
+        }
+
 
         //await addItem(formData)
         console.log(formData)
