@@ -1,5 +1,6 @@
 import useCatalog from "../../App/context/catalog/useCatalog";
 import { Select } from "@radix-ui/themes";
+import { Switch } from '@radix-ui/themes'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import {
@@ -14,7 +15,8 @@ import {
 import { useNavigate } from "react-router";
 const ItemDataForm=()=>{
     const navigate=useNavigate()
-    const {addItem,measures,catalog}=useCatalog()
+    const {addItem,measures,items,categories,updateItem}=useCatalog()
+    const [manualBarcode, setManualBarcode] = useState(false)
     const {itemId}=useParams()
     const [formData, setFormData] = useState({
     name: '',
@@ -28,32 +30,45 @@ const ItemDataForm=()=>{
     category_id: 'null'
     }) 
 
+
     const handleChange= (e)=>{
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
     const handleSubmit= async (e)=>{
         e.preventDefault()
+        const cleanedData = {
+        ...formData,
+            category_id: formData.category_id === 'null' ? null : Number(formData.category_id),
+            measure_id: formData.measure_id === 'null' ? null : Number(formData.measure_id),
+            barcode: formData.barcode === '' ? null : Number(formData.barcode),
+            quantity: Number(formData.quantity),
+            stock: Number(formData.stock)
+
+        }       
+
+        
 
         if (itemId){
-            //update
+            updateItem(Number(itemId), cleanedData)
         }
         else{
-            //create
+            addItem(cleanedData)
         }
+        console.log(cleanedData)
+        console.log('submit sent')
 
 
         //await addItem(formData)
-        console.log(formData)
     }
 
     useEffect(()=>{
 
         if (itemId){
-            const data = catalog.inventory.find(item =>(item.id===Number(itemId)))
+            const data = items.find(item =>(item.id===Number(itemId)))
             if (data) setFormData(data)
         }
-    },[catalog,itemId])
+    },[items,itemId])
     return <div>
             <button onClick={() => navigate(-1)}>back</button>
             <form onSubmit={handleSubmit}>
@@ -64,7 +79,18 @@ const ItemDataForm=()=>{
                 <input type="number" name="price" value={formData.price} onChange={handleChange} />
                 
                 <label>Barcode</label>
-                <input type="text" name="barcode" value={formData.barcode} onChange={handleChange} />
+                <Switch checked={manualBarcode} onCheckedChange={(checked) => {
+                setManualBarcode(checked)
+                if (!checked) setFormData(prev => ({ ...prev, barcode: '' }))
+                }} />
+                <input 
+                type="text" 
+                name="barcode" 
+                value={formData.barcode} 
+                onChange={handleChange} 
+                disabled={!manualBarcode}
+                title={!manualBarcode ? 'Barcode is automatically generated' : ''}
+                />
                 
                 <label>Description</label>
                 <input type="text" name="description" value={formData.description} onChange={handleChange} />
@@ -105,7 +131,7 @@ const ItemDataForm=()=>{
                     <Select.Item key='null' value='null'>
                         none
                         </Select.Item>
-                    {catalog.categories.map(category => (
+                    {categories.map(category => (
                         <Select.Item key={category.id} value={String(category.id)}>
                         {category.name}
                         </Select.Item>

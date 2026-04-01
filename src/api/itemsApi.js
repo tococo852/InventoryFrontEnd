@@ -18,6 +18,7 @@ export const itemsApi = {
     return res.json()
   },
   async update(id, item) {
+    console.log(`${BASE_URL}/items/${id}`)
     const res = await fetch(`${BASE_URL}/items/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },

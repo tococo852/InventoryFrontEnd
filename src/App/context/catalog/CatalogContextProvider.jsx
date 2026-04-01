@@ -11,13 +11,13 @@ const CatalogProvider=({children})=>{
     const [measures, setMeasures] = useState([])
     
     const getCatalog = async ()=>{
-        const data= await catalogApi.getCatalog()
+        const data= await catalogApi.get()
         setCatalog(data)
     }
 
     
     const getItems =async ()=>{
-        const data = await itemsApi.getItems()
+        const data = await itemsApi.getAll()
         setItems(data)
     }
 
@@ -41,7 +41,7 @@ const CatalogProvider=({children})=>{
 
 
     const getCategories =async ()=>{
-        const data = await categoriesApi.getCategories()
+        const data = await categoriesApi.getAll()
         setCategories(data)
     }
 
@@ -58,7 +58,7 @@ const CatalogProvider=({children})=>{
     }
 
     const getMeasures =async ()=>{
-        const data = await measureApi.getMeasures()
+        const data = await measureApi.getAll()
         setMeasures(data)
     }
 
