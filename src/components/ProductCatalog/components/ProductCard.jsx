@@ -35,7 +35,7 @@ const ProductCard=({itemInfo})=>{
 			</IconButton>
 
 			<Button size="2" variant="outline">
-				<Link to={`/catalog/${itemInfo.id}`}
+				<Link to={`/itemForm/${itemInfo.id}`}
 				    style={{ color: "inherit", textDecoration: "none" }}
 					>
 
