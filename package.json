@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@radix-ui/themes": "^3.2.1",
+    "jwt-decode": "^4.0.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-multi-carousel": "^2.8.5",

@@ -1,7 +1,13 @@
 import { useState } from "react";
 import AuthContext from "./auth.context";
 import { loginApi } from "../../../api/loginApi";
+import { jwtDecode } from 'jwt-decode'
 
+const isTokenValid = (token) => {
+  if (!token) return false
+  const { exp } = jwtDecode(token)
+  return exp * 1000 > Date.now()
+}
 const AuthProvider =({children})=>{
     const [token,setToken] = useState(localStorage.getItem('token') || null)
     
@@ -27,6 +33,13 @@ const AuthProvider =({children})=>{
     localStorage.removeItem('token')
     setToken(null)
   }
+
+    useEffect(() => {
+    if (!isTokenValid(token)) {
+        logout()
+    }
+    }, [])
+
     return (<AuthContext.Provider value={{token, login, logout}}>
         {children}
     </AuthContext.Provider>)

@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { Box, Section, Text } from "@radix-ui/themes"
 import CartLink from "./components/cartLink"
 import { Link } from "react-router"
-
+import useAuth from "../../App/context/auth/useAuth"
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -21,6 +21,9 @@ const NavLink = styled(Link)`
 `;
 
 const Header = () => {
+
+  const {token,logout}= useAuth()
+
   return (
     <Box
       py="3"
@@ -53,6 +56,15 @@ const Header = () => {
           <NavLink to="/catalog">
             <Text>Products</Text>
           </NavLink>
+          {token?(
+            <NavLink to="/login" onClick={logout}>
+            <Text>Logout</Text>
+          </NavLink>
+          ):(
+            <NavLink to="/login">
+            <Text>Login</Text>
+          </NavLink>
+          )}
 
           <CartLink />
         </Wrapper>

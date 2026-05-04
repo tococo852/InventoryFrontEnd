@@ -6,13 +6,21 @@ import App from "./App.jsx";
 import ErrorPage from "../components/ErrorPage/ErrorPage.jsx";
 import ItemDataForm from "../components/ItemDataForm/ItemDataForm.jsx";
 import Login from "../components/logIn/login.jsx";
+import ProtectedRoute from "../components/ProtectedRoute/protectedRouter.jsx";
 import { Navigate } from "react-router";
+import { Children } from "react";
 const routes = [
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage/>,
     children: [
+      {path: '/login',
+        element: <Login/>
+      },
+      {
+        element: <ProtectedRoute/>,
+        children: [
       {
         index:true, 
         element:<Navigate to="/home" replace/>
@@ -40,12 +48,10 @@ const routes = [
       {
         path:'/itemForm/:itemId',
         element:<ItemDataForm/>
-      },
-      {
-        path:'/login',
-        element:<Login/>
       }
 
+    ]
+      }
     ]
   }
   
