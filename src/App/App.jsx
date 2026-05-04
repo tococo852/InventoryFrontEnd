@@ -5,6 +5,7 @@ import { Theme } from "@radix-ui/themes";
 import { Outlet } from "react-router";
 import CartProvider from './context/cart/CartContextProvider';
 import CatalogProvider from './context/catalog/CatalogContextProvider';
+import AuthProvider from './context/auth/AuthContextProvider';
 import './App.css'
 
 const Wrapper = styled.div`
@@ -18,6 +19,7 @@ const Wrapper = styled.div`
 function App() {
   return (
     <Theme accentColor="amber" grayColor="sand" radius="large" scaling="95%">
+      <AuthProvider>
       <CartProvider>
         <CatalogProvider>
         <Wrapper>
@@ -27,6 +29,8 @@ function App() {
         </Wrapper>
         </CatalogProvider>
       </CartProvider>
+      </AuthProvider>
+
     </Theme>
   );
 }
