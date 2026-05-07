@@ -1,31 +1,62 @@
 import useCatalog from '../../../App/context/catalog/useCatalog'
 
-import { CheckboxGroup } from '@radix-ui/themes'
+import {
+  Box,
+  Flex,
+  CheckboxGroup,
+  Text,
+  Button,
+  Separator,
+} from '@radix-ui/themes'
 
 const CategorySidebar = ({ categoryFilter, setCategoryFilter }) => {
   const { catalog } = useCatalog()
-  return (
-    <CheckboxGroup.Root
-      value={categoryFilter}
-      onValueChange={setCategoryFilter}
-      style={{
-        display:"flex",
-        gap:"1rem"
 
+  return (
+    <Box
+      style={{
+        width: '240px',
+        padding: '1rem',
+        borderRight: '1px solid var(--gray-6)',
       }}
     >
-      <div>Categories</div>
+      <Text size="4" weight="bold">
+        Categories
+      </Text>
 
-      {catalog.categories.map(category => (
-        <CheckboxGroup.Item
-          key={category.name}
-          value={category.name}
-        >
-          {category.name}
-        </CheckboxGroup.Item>
-      ))}
-    </CheckboxGroup.Root>
-  );
-};
+      <Separator my="3" size="4" />
 
-export default CategorySidebar;
+      <CheckboxGroup.Root
+        value={categoryFilter}
+        onValueChange={setCategoryFilter}
+      >
+        <Flex direction="column" gap="2">
+          {catalog.categories.map(category => (
+            <Flex
+              key={category.name}
+              align="center"
+              justify="between"
+              style={{
+                padding: '0.5rem',
+                borderRadius: '8px',
+              }}
+            >
+              <CheckboxGroup.Item value={category.name}>
+                <Text>{category.name}</Text>
+              </CheckboxGroup.Item>
+
+              <Button
+                size="1"
+                variant="soft"
+              >
+                Edit
+              </Button>
+            </Flex>
+          ))}
+        </Flex>
+      </CheckboxGroup.Root>
+    </Box>
+  )
+}
+
+export default CategorySidebar

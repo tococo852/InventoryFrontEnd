@@ -1,10 +1,9 @@
-const BASE_URL = import.meta.env.VITE_API_URL
-
+import api from "./axios"
 export const catalogApi={
 
     async get(){
-        const res = await fetch(`${BASE_URL}/catalog`)
-        return res.json()
+        const res = await api(`/catalog`)
+        return res.data
     }
 
 }

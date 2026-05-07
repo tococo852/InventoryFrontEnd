@@ -39,6 +39,7 @@ const ItemDataForm = () => {
     }
     if (isEditing) updateItem(Number(itemId), cleanedData)
     else addItem(cleanedData)
+    navigate('/catalog')
   }
 
   useEffect(() => {
@@ -169,7 +170,7 @@ const ItemDataForm = () => {
 
             <Flex justify="end" gap="3">
               <Button variant="outline" type="button" onClick={() => navigate(-1)}>Cancel</Button>
-              <Button type="submit">{isEditing ? 'Update Item' : 'Add Item'}</Button>
+              <Button disabled={formData.name===''} type="submit">{isEditing ? 'Update Item' : 'Add Item'}</Button>
             </Flex>
 
           </Flex>

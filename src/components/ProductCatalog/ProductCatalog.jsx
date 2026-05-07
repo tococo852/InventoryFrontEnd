@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CategorySidebar from "./components/CategorySidebar";
 import ProductDisplay from "./components/ProductDisplay";
 import { useNavigate } from "react-router";
+import { Button } from "@radix-ui/themes";
 
 const CatalogLayout = styled.div`
   display: flex;
@@ -44,14 +45,16 @@ const ProductCatalog = () => {
     <CatalogLayout>
       <Sidebar
             style={{
-        display:"flex",
-        justifyContent:"center",
+            display:"flex",
+            justifyContent:'space-between',
+            flexDirection: "column",
 
       }}>
         <CategorySidebar
           categoryFilter={categoryFilter}
           setCategoryFilter={setCategoryFilter}
         />
+        <button onClick={()=>navigate('/categoryForm')}>add Category</button>
       </Sidebar>
 
       <Content>
