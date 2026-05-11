@@ -18,6 +18,8 @@ export const itemsApi = {
     return res.data
   },
   async delete(id) {
+    console.log('id on api')
+    console.log(id)
     const res = await api.delete(`/items/${id}`)
     return res.data
   }

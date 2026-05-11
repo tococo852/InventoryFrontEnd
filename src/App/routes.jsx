@@ -51,7 +51,7 @@ const routes = [
         element:<CategoryForm/>
       },
       {
-        path:'/categoryForm/:categoryId/:name',
+        path:'/categoryForm/:categoryId/:Name',
         element:<CategoryForm/>
       }
 

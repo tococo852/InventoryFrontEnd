@@ -23,6 +23,12 @@ const CategoryForm = () => {
     else categoriesApi.add(formData.name)
     navigate('/catalog')
   }
+  const handleDelete = async (e) =>{
+
+    categoriesApi.delete(Number(categoryId))
+    navigate('/catalog')
+
+  }
 
 
   return (
@@ -50,6 +56,7 @@ const CategoryForm = () => {
             <Flex justify="end" gap="3">
               <Button variant="outline" type="button" onClick={() => navigate(-1)}>Cancel</Button>
               <Button disabled={formData.name===''} type="submit">{isEditing ? 'Update category' : 'Add category'}</Button>
+              {categoryId && <Button  color="red" onClick={()=>handleDelete()}>Delete</Button>}
             </Flex>
 
           </Flex>

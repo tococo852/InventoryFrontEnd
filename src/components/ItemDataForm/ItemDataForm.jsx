@@ -2,6 +2,7 @@ import useCatalog from "../../App/context/catalog/useCatalog";
 import { Select, Switch, TextField, TextArea, Button, Card, Flex, Box, Text, Heading, Separator, Badge } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
+import { itemsApi } from "../../api/itemsApi";
 
 const ItemDataForm = () => {
   const navigate = useNavigate()
@@ -41,6 +42,11 @@ const ItemDataForm = () => {
     else addItem(cleanedData)
     navigate('/catalog')
   }
+    const handleDelete = async (e) =>{
+      itemsApi.delete(itemId)
+      navigate('/catalog')
+  
+    }
 
   useEffect(() => {
     if (itemId) {
@@ -170,6 +176,7 @@ const ItemDataForm = () => {
 
             <Flex justify="end" gap="3">
               <Button variant="outline" type="button" onClick={() => navigate(-1)}>Cancel</Button>
+              {itemId && <Button  color="red" onClick={()=>handleDelete()}>Delete</Button>}
               <Button disabled={formData.name===''} type="submit">{isEditing ? 'Update Item' : 'Add Item'}</Button>
             </Flex>
 

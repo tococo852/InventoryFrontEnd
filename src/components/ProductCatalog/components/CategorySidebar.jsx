@@ -1,5 +1,5 @@
 import useCatalog from '../../../App/context/catalog/useCatalog'
-
+import { useNavigate } from 'react-router'
 import {
   Box,
   Flex,
@@ -11,7 +11,7 @@ import {
 
 const CategorySidebar = ({ categoryFilter, setCategoryFilter }) => {
   const { catalog } = useCatalog()
-
+  const navigate=useNavigate()
   return (
     <Box
       style={{
@@ -35,7 +35,7 @@ const CategorySidebar = ({ categoryFilter, setCategoryFilter }) => {
             <Flex
               key={category.name}
               align="center"
-              justify="between"
+              justify="center"
               style={{
                 padding: '0.5rem',
                 borderRadius: '8px',
@@ -48,6 +48,11 @@ const CategorySidebar = ({ categoryFilter, setCategoryFilter }) => {
               <Button
                 size="1"
                 variant="soft"
+                style={{
+                  alignSelf: 'flex-end',
+                }}
+                onClick={()=> navigate(`/categoryForm/${category.id}/${category.name}`)}
+
               >
                 Edit
               </Button>
