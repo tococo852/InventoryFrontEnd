@@ -176,7 +176,7 @@ const ItemDataForm = () => {
 
             <Flex justify="end" gap="3">
               <Button variant="outline" type="button" onClick={() => navigate(-1)}>Cancel</Button>
-              {itemId && <Button  color="red" onClick={()=>handleDelete()}>Delete</Button>}
+              {itemId && <Button type="button"  color="red" onClick={()=>handleDelete()}>Delete</Button>}
               <Button disabled={formData.name===''} type="submit">{isEditing ? 'Update Item' : 'Add Item'}</Button>
             </Flex>
 
