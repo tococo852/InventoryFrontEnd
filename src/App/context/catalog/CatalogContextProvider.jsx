@@ -6,9 +6,12 @@ import { itemsApi } from "../../../api/itemsApi";
 import { categoriesApi } from "../../../api/categoriesApi";
 const CatalogProvider=({children})=>{
     const [catalog,setCatalog] = useState({ inventory: [], categories: [] })
+    const [loading, setLoading] =useState()
     const [items,setItems]=  useState([])
     const [categories,setCategories]= useState([])
     const [measures, setMeasures] = useState([])
+
+
     
     const getCatalog = async ()=>{
         const data= await catalogApi.get()
@@ -28,9 +31,6 @@ const CatalogProvider=({children})=>{
 
     }
 
-    const deleteItem=async ()=>{
-
-    }
 
     const updateItem= async (id,item)=>{
         const response= await itemsApi.update(id,item)
@@ -45,21 +45,17 @@ const CatalogProvider=({children})=>{
         setCategories(data)
     }
 
-    const addCategory =async ()=>{
-
-    }
-
-    const deleteCategory=async ()=>{
-
-    }
-
-    const updateCategory= async ()=>{
-        
-    }
 
     const getMeasures =async ()=>{
         const data = await measureApi.getAll()
         setMeasures(data)
+    }
+
+    const fetchAll = async () => {
+        getCatalog()
+        getMeasures()
+        getItems()
+        getCategories()
     }
 
     useEffect(()=>{
@@ -71,7 +67,7 @@ const CatalogProvider=({children})=>{
 
 
     return (
-    <CatalogContext.Provider value={{catalog,measures,items,categories,addItem, updateItem}}>
+    <CatalogContext.Provider value={{catalog,measures,items,categories,loading,fetchAll,addItem, updateItem}}>
         {children}
     </CatalogContext.Provider>
     )

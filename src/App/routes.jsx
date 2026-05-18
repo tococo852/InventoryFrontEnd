@@ -14,53 +14,51 @@ const routes = [
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
-      {path: '/login',
-        element: <Login/>
+      {
+        index: true,
+        element: <Navigate to="/home" replace />
       },
       {
-        element: <ProtectedRoute/>,
-        children: [
-      {
-        index:true, 
-        element:<Navigate to="/home" replace/>
+        path: '/login',
+        element: <Login />
       },
       {
-        path:'/home', 
-        element:<Home/>
+        path: '/home',
+        element: <Home />
       },
       {
         path: '/catalog',
-        element: <ProductCatalog/>
+        element: <ProductCatalog />
       },
       {
         path: '/catalog/:productId',
-        element: <ProductInfo/>
+        element: <ProductInfo />
       },
       {
-        path:'/checkout',
-        element: <CartCheckout/>
+        path: '/checkout',
+        element: <CartCheckout />
       },
       {
-        path:'/itemForm/:itemId?',
-        element:<ItemDataForm/>
-      },
-      {
-        path:'/categoryForm',
-        element:<CategoryForm/>
-      },
-      {
-        path:'/categoryForm/:categoryId/:Name',
-        element:<CategoryForm/>
-      }
-
-    ]
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: '/itemForm/:itemId?',
+            element: <ItemDataForm />
+          },
+          {
+            path: '/categoryForm',
+            element: <CategoryForm />
+          },
+          {
+            path: '/categoryForm/:categoryId/:Name',
+            element: <CategoryForm />
+          }
+        ]
       }
     ]
   }
-  
-  
-];
+]
 
-export default routes;
+export default routes

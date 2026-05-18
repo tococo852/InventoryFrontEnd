@@ -21,11 +21,13 @@ const matchCategories=(arr1,arr2)=>{
 }
 
 const ProductDisplay=({searchFilter, setSearchFilter,categoryFilter })=>{
-    const { catalog } = useCatalog()
+    const { catalog, loading } = useCatalog()
     const itemsPerPage=12
     const [currentPage, setCurrentPage] = useState(1)
     const start= (currentPage-1) * itemsPerPage
     const end= start + itemsPerPage
+    if (loading) return <p>loading</p>
+
     const filteredInventory=catalog.inventory.filter(
         (item)=>{
             let searchMatch=item.name.toLocaleLowerCase().includes(searchFilter.toLocaleLowerCase())

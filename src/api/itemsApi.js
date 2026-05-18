@@ -10,16 +10,23 @@ export const itemsApi = {
     return res.data
   },
   async add(item) {
-    const res = await api.post('/items', item)
+    const formData = new FormData()
+    Object.entries(item).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) formData.append(key, value)
+    })
+    const res = await api.post('/items', formData)
     return res.data
   },
   async update(id, item) {
-    const res = await api.put(`/items/${id}`, item)
+
+    const formData = new FormData()
+    Object.entries(item).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) formData.append(key, value)
+    })
+    const res = await api.put(`/items/${id}`, formData)
     return res.data
   },
   async delete(id) {
-    console.log('id on api')
-    console.log(id)
     const res = await api.delete(`/items/${id}`)
     return res.data
   }

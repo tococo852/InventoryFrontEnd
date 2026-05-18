@@ -1,5 +1,6 @@
 import useCatalog from '../../../App/context/catalog/useCatalog'
 import { useNavigate } from 'react-router'
+import useAuth from '../../../App/context/auth/useAuth'
 import {
   Box,
   Flex,
@@ -12,6 +13,7 @@ import {
 const CategorySidebar = ({ categoryFilter, setCategoryFilter }) => {
   const { catalog } = useCatalog()
   const navigate=useNavigate()
+  const {token} = useAuth()
   return (
     <Box
       style={{
@@ -45,7 +47,7 @@ const CategorySidebar = ({ categoryFilter, setCategoryFilter }) => {
                 <Text>{category.name}</Text>
               </CheckboxGroup.Item>
 
-              <Button
+              {token && <Button
                 size="1"
                 variant="soft"
                 style={{
@@ -55,7 +57,7 @@ const CategorySidebar = ({ categoryFilter, setCategoryFilter }) => {
 
               >
                 Edit
-              </Button>
+              </Button>}
             </Flex>
           ))}
         </Flex>

@@ -4,6 +4,7 @@ import CategorySidebar from "./components/CategorySidebar";
 import ProductDisplay from "./components/ProductDisplay";
 import { useNavigate } from "react-router";
 import { Button } from "@radix-ui/themes";
+import useAuth from "../../App/context/auth/useAuth";
 
 const CatalogLayout = styled.div`
   display: flex;
@@ -40,6 +41,7 @@ const ProductCatalog = () => {
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [searchFilter, setSearchFilter] = useState("");
   const navigate=useNavigate()
+  const {token} = useAuth()
 
   return (
     <CatalogLayout>
@@ -54,11 +56,11 @@ const ProductCatalog = () => {
           categoryFilter={categoryFilter}
           setCategoryFilter={setCategoryFilter}
         />
-        <button onClick={()=>navigate('/categoryForm')}>add Category</button>
+        {token && (<button onClick={()=>navigate('/categoryForm')}>add Category</button>)}
       </Sidebar>
 
       <Content>
-        <button onClick={()=>navigate('/itemForm')}>addItem</button>
+        { token && <button onClick={()=>navigate('/itemForm')}>addItem</button>}
         <ProductDisplay
           searchFilter={searchFilter}
           setSearchFilter={setSearchFilter}

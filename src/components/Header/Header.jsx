@@ -56,17 +56,14 @@ const Header = () => {
           <NavLink to="/catalog">
             <Text>Products</Text>
           </NavLink>
-          {token?(
+
+          {token &&(
             <NavLink to="/login" onClick={logout}>
             <Text>Logout</Text>
           </NavLink>
-          ):(
-            <NavLink to="/login">
-            <Text>Login</Text>
-          </NavLink>
           )}
 
-          <CartLink />
+          {/*<CartLink />*/}
         </Wrapper>
       </Section>
     </Box>

@@ -20,7 +20,8 @@ const ItemDataForm = () => {
     image_url: '',
     quantity: 0,
     stock: 0,
-    category_id: 'null'
+    category_id: 'null',
+    img_file:null
   })
 
   const handleChange = (e) => {
@@ -75,12 +76,28 @@ const ItemDataForm = () => {
         <form onSubmit={handleSubmit}>
           <Flex direction="column" gap="4" p="4">
 
+            {/* image */}
+            <Box style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              {!formData.image_url?(
+				      <img src="https://res.cloudinary.com/dz3iqsynp/image/upload/v1779125377/no-image_gkt5oj.webp" alt="" style={{height:"20em", width:"20em"}} />
+
+              ):(
+                <img src={`${formData.image_url}`} alt="" style={{height:"20em", width:"20em"}} />
+
+              )}
+            </Box>
+
             {/* Name */}
             <Box>
               <Text as="label" size="2" weight="medium" htmlFor="name">Name</Text>
               <TextField.Root mt="1" id="name" name="name" value={formData.name} onChange={handleChange} placeholder="Item name" />
             </Box>
 
+            
             {/* Price */}
             <Box>
               <Text as="label" size="2" weight="medium" htmlFor="price">Price</Text>
@@ -120,8 +137,8 @@ const ItemDataForm = () => {
 
             {/* Image URL */}
             <Box>
-              <Text as="label" size="2" weight="medium" htmlFor="image_url">Image URL</Text>
-              <TextField.Root mt="1" id="image_url" name="image_url" value={formData.image_url} onChange={handleChange} placeholder="https://..." />
+              <Text as="label" size="2" weight="medium" htmlFor="img_file">Image Upload</Text>
+              <input type="file" onChange={(e)=>setFormData(prev=>({...prev, img_file:e.target.files[0]}))}/>
             </Box>
 
             <Separator size="4" />
@@ -171,6 +188,7 @@ const ItemDataForm = () => {
                 </Select.Root>
               </Box>
             </Flex>
+
 
             <Separator size="4" />
 
