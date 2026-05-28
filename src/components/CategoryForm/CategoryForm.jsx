@@ -2,11 +2,13 @@ import { Select, Switch, TextField, TextArea, Button, Card, Flex, Box, Text, Hea
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { categoriesApi } from "../../api/categoriesApi";
+import useCatalog from "../../App/context/catalog/useCatalog";
 
 const CategoryForm = () => {
   const navigate = useNavigate()
   const { categoryId,Name } = useParams()
   const isEditing = !!categoryId
+  const {triggerUpdate}= useCatalog()
 
   const [formData, setFormData] = useState({
     name: Name || '',
@@ -21,11 +23,13 @@ const CategoryForm = () => {
 
     if (isEditing) categoriesApi.update(Number(categoryId), formData.name)
     else categoriesApi.add(formData.name)
+    triggerUpdate()
     navigate('/catalog')
   }
   const handleDelete = async (e) =>{
 
     categoriesApi.delete(Number(categoryId))
+    triggerUpdate()
     navigate('/catalog')
 
   }

@@ -6,7 +6,7 @@ import { itemsApi } from "../../api/itemsApi";
 
 const ItemDataForm = () => {
   const navigate = useNavigate()
-  const { addItem, measures, items, categories, updateItem } = useCatalog()
+  const { addItem, measures, items, categories, updateItem, triggerUpdate } = useCatalog()
   const [manualBarcode, setManualBarcode] = useState(false)
   const { itemId } = useParams()
   const isEditing = !!itemId
@@ -41,10 +41,13 @@ const ItemDataForm = () => {
     }
     if (isEditing) updateItem(Number(itemId), cleanedData)
     else addItem(cleanedData)
+
+    triggerUpdate()
     navigate('/catalog')
   }
     const handleDelete = async (e) =>{
       itemsApi.delete(itemId)
+      triggerUpdate()
       navigate('/catalog')
   
     }

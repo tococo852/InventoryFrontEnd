@@ -6,13 +6,15 @@ import { itemsApi } from "../../../api/itemsApi";
 import { categoriesApi } from "../../../api/categoriesApi";
 const CatalogProvider=({children})=>{
     const [catalog,setCatalog] = useState({ inventory: [], categories: [] })
-    const [loading, setLoading] =useState()
+    const [update, setUpdate] =useState(0)
     const [items,setItems]=  useState([])
     const [categories,setCategories]= useState([])
     const [measures, setMeasures] = useState([])
 
 
-    
+    const triggerUpdate = () =>{
+        setUpdate(prev=>prev+1)
+    }
     const getCatalog = async ()=>{
         const data= await catalogApi.get()
         setCatalog(data)
@@ -63,11 +65,11 @@ const CatalogProvider=({children})=>{
         getMeasures()
         getItems()
         getCategories()
-    },[])
+    },[update])
 
 
     return (
-    <CatalogContext.Provider value={{catalog,measures,items,categories,loading,fetchAll,addItem, updateItem}}>
+    <CatalogContext.Provider value={{catalog,measures,items,categories,triggerUpdate,fetchAll,addItem, updateItem}}>
         {children}
     </CatalogContext.Provider>
     )
