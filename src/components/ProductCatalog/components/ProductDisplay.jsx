@@ -57,7 +57,7 @@ const ProductDisplay=({searchFilter, setSearchFilter,categoryFilter })=>{
         ))
             ):(
                 <div>
-                    no item found with those parameters
+                    Cargando Productos
                 </div>
             )
         }

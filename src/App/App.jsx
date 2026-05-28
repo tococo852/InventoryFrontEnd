@@ -18,8 +18,12 @@ const Wrapper = styled.div`
 
 function App() {
   return (
-    <Theme accentColor="amber" grayColor="sand" radius="large" scaling="95%">
-      <AuthProvider>
+<Theme
+  accentColor="orange"
+  grayColor="slate"
+  radius="large"
+  scaling="95%"
+>      <AuthProvider>
       <CartProvider>
         <CatalogProvider>
         <Wrapper>

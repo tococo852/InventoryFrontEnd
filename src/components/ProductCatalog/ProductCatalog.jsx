@@ -10,6 +10,7 @@ const CatalogLayout = styled.div`
   display: flex;
   height: 100%;
   min-height: 70vh;
+  padding-bottom: 4rem;
 
   @media (max-width: 768px) {
     flex-direction: column;

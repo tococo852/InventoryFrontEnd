@@ -11,9 +11,11 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@mynaui/icons-react": "^0.4.2",
     "@radix-ui/themes": "^3.2.1",
     "axios": "^1.16.0",
     "jwt-decode": "^4.0.0",
+    "lucide-react": "^1.17.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-multi-carousel": "^2.8.5",

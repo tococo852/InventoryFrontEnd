@@ -8,6 +8,8 @@ import ItemDataForm from "../components/ItemDataForm/ItemDataForm.jsx";
 import Login from "../components/logIn/login.jsx";
 import ProtectedRoute from "../components/ProtectedRoute/protectedRouter.jsx";
 import CategoryForm from "../components/CategoryForm/CategoryForm.jsx";
+import Contact from "../components/Contact/Contact.jsx";
+import AboutUs from "../components/AboutUs/AboutUs.jsx";
 import { Navigate } from "react-router";
 import { Children } from "react";
 const routes = [
@@ -39,6 +41,14 @@ const routes = [
       {
         path: '/checkout',
         element: <CartCheckout />
+      },
+      {
+        path: '/contact',
+        element: <Contact />
+      },
+      {
+        path: '/about',
+        element: <AboutUs />
       },
       {
         element: <ProtectedRoute />,
