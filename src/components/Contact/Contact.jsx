@@ -10,9 +10,9 @@ import {
 
 import {
   Mail,
-  Phone,
+  Telephone,
   MapPin,
-} from 'lucide-react';
+} from '@mynaui/icons-react';
 
 const Contact = () => {
   return (
@@ -101,7 +101,7 @@ const Contact = () => {
                 borderRadius: '999px',
               }}
             >
-              <Phone
+              <Telephone
                 size={50}
                 color="var(--orange-9)"
               />

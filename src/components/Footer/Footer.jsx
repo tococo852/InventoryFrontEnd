@@ -74,14 +74,14 @@ const Footer = () => {
                 Logo
               </Text>
               <Flex gap="3">
-                <div>filler</div>
+                {/*<div>redes</div>*/}
               </Flex>
             </Flex>
 
             {/* Navegacion */}
             <Flex direction="column" gap="3">
               <SectionTitle size="4" weight="bold">
-                navegación
+                Navegación
               </SectionTitle>
 
               <FooterLink onClick={()=>navigate('/catalog')} >Productos</FooterLink>
@@ -92,7 +92,7 @@ const Footer = () => {
             {/* informacion */}
             <Flex direction="column" gap="3" align={'center'}>
               <SectionTitle size="4" weight="bold">
-                Informacion
+                Información
               </SectionTitle>
 
             <Flex onClick={()=> window.open('https://maps.app.goo.gl/SWhK3KQuM38Pw8QZ8', '_blank', 'noopener,noreferrer')}  align={'center'} style={{cursor:'pointer', textDecoration:'underline', width:'100%'}} gap={"5"} justify={'start'}>

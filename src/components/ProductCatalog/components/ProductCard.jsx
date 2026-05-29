@@ -17,10 +17,10 @@ const ProductCard=({itemInfo})=>{
 					>
 
 			{!itemInfo.image_url?(
-				<img src="https://res.cloudinary.com/dz3iqsynp/image/upload/v1779125377/no-image_gkt5oj.webp" alt="" style={{height:"8em", width:"8em"}} />
+				<img loading="lazy" src="https://res.cloudinary.com/dz3iqsynp/image/upload/v1779125377/no-image_gkt5oj.webp" alt="" style={{height:"8em", width:"8em"}} />
 
 			):(
-				<img src={`${itemInfo.image_url}`} alt="" style={{height:"8em", width:"8em"}} />
+				<img loading="lazy" src={`${itemInfo.image_url}`} alt="" style={{height:"8em", width:"8em"}} />
 
 			)}
 		</Link>	

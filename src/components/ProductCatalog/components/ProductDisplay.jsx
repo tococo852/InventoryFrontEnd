@@ -1,14 +1,29 @@
 //import useCart from "../../../App/context/cart/useCart"
 import ProductCard from "./ProductCard"
 import useCatalog from '../../../App/context/catalog/useCatalog'
-import { Button, Grid } from "@radix-ui/themes"
+import Paginator from "../../Paginator/Paginator"
+import SearchBar from "../../SearchBar/SearchBar"
 import { useState } from "react"
 import styled from "styled-components"
+import {
+  Flex,
+  TextField,
+  IconButton,
+  Button,
+  Text,
+  Grid
+} from "@radix-ui/themes";
 
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+} from "@mynaui/icons-react";
 const Wrapper=styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
+    padding-top: 1rem;
 
 `
 const matchCategories=(arr1,arr2)=>{
@@ -38,10 +53,9 @@ const ProductDisplay=({searchFilter, setSearchFilter,categoryFilter })=>{
     const pageItems=filteredInventory.slice(start,end)
     console.log(currentPage)
     return <Wrapper>
-        <div>
-            <input type="text" name="" id="" placeholder="Search Bar" value={searchFilter} onChange={(e)=>setSearchFilter(e.target.value)}/>
 
-        </div>
+    <SearchBar setSearchFilter={setSearchFilter} searchFilter={searchFilter}/>
+
     <Grid gap="3" columns="repeat(4, max-content)" rows="repeat(3, max-content)"
     overflowY={'scroll'}
     style={{
@@ -64,17 +78,7 @@ const ProductDisplay=({searchFilter, setSearchFilter,categoryFilter })=>{
        
         </Grid>
 
-    <div style={{display:"flex", justifyContent:"center", gap:"1rem"}}>
-        <button onClick={()=>setCurrentPage((prev)=> Math.max(prev-1,1))}>
-        &lt;
-    </button>
-    {Array.from({length :Math.ceil(filteredInventory.length/itemsPerPage)}).map((_,i)=>(
-         <button style={{color:(i+1)==currentPage?"blue":"inherit"}}key={i} onClick={()=>{setCurrentPage(i+1)}}>{i+1}</button>
-    ))}
-    <button onClick={()=>setCurrentPage((prev)=> Math.min(prev+1, Math.ceil(filteredInventory.length/itemsPerPage)))}>
-        &gt;
-    </button>
-    </div>
+    <Paginator currentPage={currentPage} setCurrentPage={setCurrentPage} itemsPerPage={itemsPerPage} filteredInventory={filteredInventory}/>
     </Wrapper>
 }
 // (page)=> setCurrentPage(page)

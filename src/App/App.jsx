@@ -12,9 +12,7 @@ const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 `;
-
 
 function App() {
   return (
@@ -28,7 +26,9 @@ function App() {
         <CatalogProvider>
         <Wrapper>
           <Header />
-          <Outlet />
+          <main style={{ flex: 1 }}>
+              <Outlet />
+            </main>
           <Footer />
         </Wrapper>
         </CatalogProvider>

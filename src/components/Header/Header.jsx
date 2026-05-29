@@ -60,7 +60,7 @@ const Header = () => {
                     color: "rgba(255,255,255,0.92)",
                   }}
                 >
-                  Home
+                  Inicio
                 </Text>
               </NavLink>
 
@@ -96,7 +96,7 @@ const Header = () => {
                     color: "rgba(255,255,255,0.92)",
                   }}
                 >
-                  Products
+                  Productos
                 </Text>
               </NavLink>
 
