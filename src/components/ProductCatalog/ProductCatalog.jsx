@@ -3,11 +3,14 @@ import styled from "styled-components";
 import CategorySidebar from "./components/CategorySidebar";
 import ProductDisplay from "./components/ProductDisplay";
 import { useNavigate } from "react-router";
+import { Button } from "@radix-ui/themes";
+import useAuth from "../../App/context/auth/useAuth";
 
 const CatalogLayout = styled.div`
   display: flex;
   height: 100%;
   min-height: 70vh;
+  padding-bottom: 4rem;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -39,23 +42,26 @@ const ProductCatalog = () => {
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [searchFilter, setSearchFilter] = useState("");
   const navigate=useNavigate()
+  const {token} = useAuth()
 
   return (
     <CatalogLayout>
       <Sidebar
             style={{
-        display:"flex",
-        justifyContent:"center",
+            display:"flex",
+            justifyContent:'space-between',
+            flexDirection: "column",
 
       }}>
         <CategorySidebar
           categoryFilter={categoryFilter}
           setCategoryFilter={setCategoryFilter}
         />
+        {token && (<button onClick={()=>navigate('/categoryForm')}>add Category</button>)}
       </Sidebar>
 
       <Content>
-        <button onClick={()=>navigate('/itemForm')}>addItem</button>
+        { token && <button onClick={()=>navigate('/itemForm')}>addItem</button>}
         <ProductDisplay
           searchFilter={searchFilter}
           setSearchFilter={setSearchFilter}

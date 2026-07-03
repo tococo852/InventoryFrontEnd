@@ -1,34 +1,24 @@
-// measuresApi.js
-const BASE_URL = import.meta.env.VITE_API_URL
+import api from "./axios"
+
 export const measureApi = {
   async getAll() {
-    const res = await fetch(`${BASE_URL}/measures`)
-    return res.json()
+    const res = await api.get('/measures')
+    return res.data
   },
   async getOne(id) {
-    const res = await fetch(`${BASE_URL}/measures/${id}`)
-    return res.json()
+    const res = await api.get(`/measures/${id}`)
+    return res.data
   },
   async add(measure) {
-    const res = await fetch(`${BASE_URL}/measures`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ measure })
-    })
-    return res.json()
+    const res = await api.post('/measures', { measure })
+    return res.data
   },
   async update(id, measure) {
-    const res = await fetch(`${BASE_URL}/measures/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ measure })
-    })
-    return res.json()
+    const res = await api.put(`/measures/${id}`, { measure })
+    return res.data
   },
   async delete(id) {
-    const res = await fetch(`${BASE_URL}/measures/${id}`, {
-      method: 'DELETE'
-    })
-    return res.json()
+    const res = await api.delete(`/measures/${id}`)
+    return res.data
   }
 }

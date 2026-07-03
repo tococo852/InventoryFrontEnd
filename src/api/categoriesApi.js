@@ -1,33 +1,24 @@
-const BASE_URL = import.meta.env.VITE_API_URL
+import api from "./axios"
+
 export const categoriesApi = {
   async getAll() {
-    const res = await fetch(`${BASE_URL}/categories`)
-    return res.json()
+    const res = await api.get('/categories')
+    return res.data
   },
   async getOne(id) {
-    const res = await fetch(`${BASE_URL}/categories/${id}`)
-    return res.json()
+    const res = await api.get(`/categories/${id}`)
+    return res.data
   },
   async add(name) {
-    const res = await fetch(`${BASE_URL}/categories`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name })
-    })
-    return res.json()
+    const res = await api.post('/categories', { name })
+    return res.data
   },
   async update(id, name) {
-    const res = await fetch(`${BASE_URL}/categories/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name })
-    })
-    return res.json()
+    const res = await api.put(`/categories/${id}`, { name })
+    return res.data
   },
   async delete(id) {
-    const res = await fetch(`${BASE_URL}/categories/${id}`, {
-      method: 'DELETE'
-    })
-    return res.json()
+    const res = await api.delete(`/categories/${id}`)
+    return res.data
   }
 }

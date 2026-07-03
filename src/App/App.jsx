@@ -5,28 +5,36 @@ import { Theme } from "@radix-ui/themes";
 import { Outlet } from "react-router";
 import CartProvider from './context/cart/CartContextProvider';
 import CatalogProvider from './context/catalog/CatalogContextProvider';
+import AuthProvider from './context/auth/AuthContextProvider';
 import './App.css'
 
 const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 `;
-
 
 function App() {
   return (
-    <Theme accentColor="amber" grayColor="sand" radius="large" scaling="95%">
+<Theme
+  accentColor="orange"
+  grayColor="slate"
+  radius="large"
+  scaling="95%"
+>      <AuthProvider>
       <CartProvider>
         <CatalogProvider>
         <Wrapper>
           <Header />
-          <Outlet />
+          <main style={{ flex: 1 }}>
+              <Outlet />
+            </main>
           <Footer />
         </Wrapper>
         </CatalogProvider>
       </CartProvider>
+      </AuthProvider>
+
     </Theme>
   );
 }

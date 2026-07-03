@@ -18,13 +18,13 @@ const ProductInfo = () => {
   const {catalog}=useCatalog()
   const navigate=useNavigate()
   const { productId } = useParams();
-  const product = catalog.inventory.find(
+  const product = (catalog.inventory.find(
     item => item.id === Number(productId)
-  );
+  ))
   
   const [displayCartPopUp,setDisplayCartPopUp] = useState()
 
-  return (
+  return product?(
     <Container size="3" style={{ marginTop: "3rem"}}>
       <Flex justify="start">
     <Button onClick={() => navigate(-1)}>
@@ -75,9 +75,9 @@ const ProductInfo = () => {
                 borderTop: "1px solid var(--gray-a5)"
               }}
             >
-              <Button size="3" onClick={()=>setDisplayCartPopUp(true)}>
+              {/*<Button size="3" onClick={()=>setDisplayCartPopUp(true)}>
                 Add to cart
-              </Button>
+              </Button>*/}
             </Box>
           </Flex>
         </Flex>
@@ -85,7 +85,7 @@ const ProductInfo = () => {
       {displayCartPopUp && <CartAddPopUp ProductInfo={product} setDisplay={setDisplayCartPopUp}/>}
     </Container>
 
-  );
+  ):(<p>loading</p>);
 };
 
 export default ProductInfo;

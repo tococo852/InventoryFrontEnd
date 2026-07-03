@@ -1,19 +1,28 @@
 import { Card, IconButton, Inset, Text} from "@radix-ui/themes"
 import { Button } from "@radix-ui/themes"
 import { Link } from "react-router"
-import 	CartIcon from "../../../shared-assets/cart.svg?react"
-import CartAddPopUp from "../../CartAddPopUp/CartAddPopUP"
-import { useState } from "react"
-
+import useAuth from "../../../App/context/auth/useAuth"
 const ProductCard=({itemInfo})=>{
-	const [cartDisplay, setCartDisplay]=useState(false)
+	const {token} = useAuth()
+
     return <>
         <Card variant="surface" style={{padding:"1.5rem"}}>
         <Text as="div" size="2" weight="bold">
 			{itemInfo.name}
 		</Text>  
-		<Link to={`/catalog/${itemInfo.id}`}>
-			<img src="" alt="" style={{height:"8em", width:"8em"}} />
+		<Link to={
+					(!token)?(`/catalog/${itemInfo.id}`):(`/itemForm/${itemInfo.id}`)
+				}
+				    style={{ color: "inherit", textDecoration: "none" }}
+					>
+
+			{!itemInfo.image_url?(
+				<img loading="lazy" src="https://res.cloudinary.com/dz3iqsynp/image/upload/v1779125377/no-image_gkt5oj.webp" alt="" style={{height:"8em", width:"8em"}} />
+
+			):(
+				<img loading="lazy" src={`${itemInfo.image_url}`} alt="" style={{height:"8em", width:"8em"}} />
+
+			)}
 		</Link>	
 		
 		<Text as="div" color="gray" size="2">
@@ -26,16 +35,14 @@ const ProductCard=({itemInfo})=>{
 		<div style={{
 			display:"flex",
 			gap:"5px",
-			justifyContent:"space-between"
+			justifyContent:"center"
 		}}>
 			
-
-			<IconButton variant="soft" onClick={()=>{setCartDisplay(true)}}>
-				<CartIcon width={"1.2rem"}/>
-			</IconButton>
-
 			<Button size="2" variant="outline">
-				<Link to={`/itemForm/${itemInfo.id}`}
+			
+				<Link to={
+					(!token)?(`/catalog/${itemInfo.id}`):(`/itemForm/${itemInfo.id}`)
+				}
 				    style={{ color: "inherit", textDecoration: "none" }}
 					>
 
@@ -46,7 +53,6 @@ const ProductCard=({itemInfo})=>{
 
 			
 	    </Card>
-		{cartDisplay && <CartAddPopUp ProductInfo={itemInfo} setDisplay={setCartDisplay}/>}
         </>
 }
 export default ProductCard

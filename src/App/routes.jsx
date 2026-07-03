@@ -5,46 +5,70 @@ import CartCheckout from "../components/CartCheckout/CartCheckout.jsx";
 import App from "./App.jsx";
 import ErrorPage from "../components/ErrorPage/ErrorPage.jsx";
 import ItemDataForm from "../components/ItemDataForm/ItemDataForm.jsx";
+import Login from "../components/logIn/login.jsx";
+import ProtectedRoute from "../components/ProtectedRoute/protectedRouter.jsx";
+import CategoryForm from "../components/CategoryForm/CategoryForm.jsx";
+import Contact from "../components/Contact/Contact.jsx";
+import AboutUs from "../components/AboutUs/AboutUs.jsx";
 import { Navigate } from "react-router";
+import { Children } from "react";
 const routes = [
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
       {
-        index:true, 
-        element:<Navigate to="/home" replace/>
+        index: true,
+        element: <Navigate to="/home" replace />
       },
       {
-        path:'/home', 
-        element:<Home/>
+        path: '/login',
+        element: <Login />
+      },
+      {
+        path: '/home',
+        element: <Home />
       },
       {
         path: '/catalog',
-        element: <ProductCatalog/>
+        element: <ProductCatalog />
       },
       {
         path: '/catalog/:productId',
-        element: <ProductInfo/>
+        element: <ProductInfo />
       },
       {
-        path:'/checkout',
-        element: <CartCheckout/>
+        path: '/checkout',
+        element: <CartCheckout />
       },
       {
-        path:'/itemForm',
-        element:<ItemDataForm/>
+        path: '/contact',
+        element: <Contact />
       },
       {
-        path:'/itemForm/:itemId',
-        element:<ItemDataForm/>
+        path: '/about',
+        element: <AboutUs />
+      },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: '/itemForm/:itemId?',
+            element: <ItemDataForm />
+          },
+          {
+            path: '/categoryForm',
+            element: <CategoryForm />
+          },
+          {
+            path: '/categoryForm/:categoryId/:Name',
+            element: <CategoryForm />
+          }
+        ]
       }
-
     ]
   }
-  
-  
-];
+]
 
-export default routes;
+export default routes
