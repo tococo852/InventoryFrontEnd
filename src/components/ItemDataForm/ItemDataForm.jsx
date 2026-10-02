@@ -8,7 +8,7 @@ const ItemDataForm = () => {
   const navigate = useNavigate()
   const {toggle, setToggle}= useState()
   const handleToggle =()=>{
-
+    setToggle()
   }
 
   return (
