@@ -1,0 +1,152 @@
+
+[
+  {
+    "id": 9,
+    "name": "Bolsa y Variaciones",
+    "image_url": "sample.com",
+    "display": true,
+    "_count": {
+      "Item": 4
+    },
+    "Item": [
+      {
+        "id": 28,
+        "name": "Bolsa 8x15 rojo"
+      },
+      {
+        "id": 29,
+        "name": "Bolsa 10x20 azul"
+      },
+      {
+        "id": 30,
+        "name": "Bolsa 10x20 rojo"
+      },
+      {
+        "id": 27,
+        "name": "Bolsa"
+      }
+    ],
+    "Category": [
+      {
+        "name": "bolsa",
+        "id": 1
+      },
+      {
+        "name": "plastico",
+        "id": 2
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "aluminio y Variaciones",
+    "image_url": "",
+    "display": true,
+    "_count": {
+      "Item": 1
+    },
+    "Item": [
+      {
+        "id": 31,
+        "name": "aluminio"
+      }
+    ],
+    "Category": []
+  },
+  {
+    "id": 11,
+    "name": "Saco De Papel y Variaciones",
+    "image_url": "",
+    "display": true,
+    "_count": {
+      "Item": 1
+    },
+    "Item": [
+      {
+        "id": 32,
+        "name": "Saco De Papel"
+      }
+    ],
+    "Category": []
+  },
+  {
+    "id": 12,
+    "name": "Bolsa con aza y Variaciones",
+    "image_url": "",
+    "display": true,
+    "_count": {
+      "Item": 1
+    },
+    "Item": [
+      {
+        "id": 33,
+        "name": "Bolsa con aza"
+      }
+    ],
+    "Category": []
+  },
+  {
+    "id": 13,
+    "name": "film cocina y Variaciones",
+    "image_url": "",
+    "display": true,
+    "_count": {
+      "Item": 1
+    },
+    "Item": [
+      {
+        "id": 34,
+        "name": "film cocina"
+      }
+    ],
+    "Category": []
+  },
+  {
+    "id": 14,
+    "name": "Bolsa camiseta y Variaciones",
+    "image_url": "",
+    "display": true,
+    "_count": {
+      "Item": 1
+    },
+    "Item": [
+      {
+        "id": 35,
+        "name": "Bolsa camiseta"
+      }
+    ],
+    "Category": []
+  },
+  {
+    "id": 15,
+    "name": "Bolsa Polipropileno y Variaciones",
+    "image_url": "",
+    "display": true,
+    "_count": {
+      "Item": 1
+    },
+    "Item": [
+      {
+        "id": 36,
+        "name": "Bolsa Polipropileno"
+      }
+    ],
+    "Category": []
+  },
+  {
+    "id": 16,
+    "name": "Malla raschel",
+    "image_url": "",
+    "display": true,
+    "_count": {
+      "Item": 1
+    },
+    "Item": [
+      {
+        "id": 37,
+        "name": "Malla raschel"
+      }
+    ],
+    "Category": []
+  }
+]

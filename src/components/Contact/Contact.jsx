@@ -6,6 +6,7 @@ import {
   Heading,
   Separator,
   Text,
+  Link
 } from '@radix-ui/themes';
 
 import {
@@ -154,7 +155,7 @@ const Contact = () => {
                 Encuéntranos en
               </Text>
 
-              <Text  color="gray" size="5" style={{textDecoration:'underline'}}>
+              <Text  color="gray" size="5" style={{cursor:'pointer',textDecoration:'underline'}} onClick={()=> window.open('https://maps.app.goo.gl/SWhK3KQuM38Pw8QZ8', '_blank', 'noopener,noreferrer')}>
                 Yungay 223, San Felipe
               </Text>
             </Flex>

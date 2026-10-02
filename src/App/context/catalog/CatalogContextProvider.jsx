@@ -4,27 +4,28 @@ import { catalogApi } from "../../../api/catalogApi";
 import { measureApi } from "../../../api/measureApi";
 import { itemsApi } from "../../../api/itemsApi";
 import { categoriesApi } from "../../../api/categoriesApi";
+import { itemsFamilyApi } from "../../../api/itemFamily";
+import { variantApi } from "../../../api/variantApi";
+import { variantGroupApi } from "../../../api/variantApi";
 const CatalogProvider=({children})=>{
-    const [catalog,setCatalog] = useState({ inventory: [], categories: [] })
     const [update, setUpdate] =useState(0)
     const [items,setItems]=  useState([])
     const [categories,setCategories]= useState([])
     const [measures, setMeasures] = useState([])
+    const [variants, setVariants]= useState([])
 
 
     const triggerUpdate = () =>{
         setUpdate(prev=>prev+1)
     }
-    const getCatalog = async ()=>{
-        const data= await catalogApi.get()
-        setCatalog(data)
-    }
 
     
     const getItems =async ()=>{
-        const data = await itemsApi.getAll()
+        const data = await itemsFamilyApi.getAll()
         setItems(data)
     }
+
+
 
     const addItem =async (item)=>{
         const response= await itemsApi.add(item)
@@ -52,16 +53,20 @@ const CatalogProvider=({children})=>{
         const data = await measureApi.getAll()
         setMeasures(data)
     }
+    const getVariantGroups =async ()=>{
+        const data = await variantGroupApi.getAll()
+        setVariants(data)
+    }
 
     const fetchAll = async () => {
-        getCatalog()
+        getVariantGroups()
         getMeasures()
         getItems()
         getCategories()
     }
 
     useEffect(()=>{
-        getCatalog()
+        getVariantGroups()
         getMeasures()
         getItems()
         getCategories()
@@ -69,7 +74,7 @@ const CatalogProvider=({children})=>{
 
 
     return (
-    <CatalogContext.Provider value={{catalog,measures,items,categories,triggerUpdate,fetchAll,addItem, updateItem}}>
+    <CatalogContext.Provider value={{measures,items,categories,variants,triggerUpdate,fetchAll,addItem, updateItem}}>
         {children}
     </CatalogContext.Provider>
     )

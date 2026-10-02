@@ -12,7 +12,7 @@ import {
 
 
 const CategorySidebar = ({ categoryFilter, setCategoryFilter }) => {
-  const { catalog } = useCatalog()
+  const { catalog,categories  } = useCatalog()
   const navigate=useNavigate()
   const {token} = useAuth()
   return (
@@ -24,18 +24,18 @@ const CategorySidebar = ({ categoryFilter, setCategoryFilter }) => {
   }}
 >
   <Text size="4" weight="bold">
-    Categories
+    Categorias
   </Text>
 
   <Separator my="3" size="4" />
 
-  {catalog ? (
+  {categories ? (
     <CheckboxGroup.Root
       value={categoryFilter}
       onValueChange={setCategoryFilter}
     >
       <Flex direction="column" gap="2">
-        {catalog.categories.map(category => (
+        {categories.map(category => (
           <Flex
             key={category.name}
             align="center"
@@ -45,7 +45,7 @@ const CategorySidebar = ({ categoryFilter, setCategoryFilter }) => {
               borderRadius: '8px',
             }}
           >
-            <CheckboxGroup.Item value={category.name}>
+            <CheckboxGroup.Item value={category.id}>
               <Text>{category.name}</Text>
             </CheckboxGroup.Item>
 
