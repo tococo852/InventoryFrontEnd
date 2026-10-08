@@ -1,27 +1,25 @@
 import useCatalog from "../../App/context/catalog/useCatalog";
 import { Select, Switch, TextField, TextArea, Button, Card, Flex, Box, Text, Heading, Separator, Badge } from "@radix-ui/themes";
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { itemsApi } from "../../api/itemsApi";
+import { all } from "axios";
 
-const ItemDataForm = () => {
+const FamilyEdit = () => {
   const navigate = useNavigate()
-  const { addItem, measures, items, categories, updateItem, triggerUpdate } = useCatalog()
+  const { addItem, items, categories, updateItem, triggerUpdate } = useCatalog()
   const [manualBarcode, setManualBarcode] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState({id:'null',name:''});
   const { itemId } = useParams()
+  const [categoryList, setCategoryList]= useState([])
   const isEditing = !!itemId
 
   const [formData, setFormData] = useState({
     name: '',
-    price: 0,
-    measure_id: '1',
-    barcode: '',
-    description: '',
     image_url: '',
-    quantity: 0,
-    stock: 0,
     category_id: 'null',
-    img_file:null
+    img_file:null,
+    category:[],
   })
 
   const handleChange = (e) => {
@@ -33,35 +31,62 @@ const ItemDataForm = () => {
     const cleanedData = {
       ...formData,
       category_id: formData.category_id === 'null' ? null : Number(formData.category_id),
-      measure_id: formData.measure_id === 'null' ? null : Number(formData.measure_id),
-      barcode: formData.barcode === '' ? null : formData.barcode,
-      quantity: Number(formData.quantity),
-      stock: Number(formData.stock),
-      price: Number(formData.price)
     }
     if (isEditing) updateItem(Number(itemId), cleanedData)
     else addItem(cleanedData)
 
     triggerUpdate()
-    navigate('/catalog')
   }
-    const handleDelete = async (e) =>{
+
+  const getName = (id) => {
+  const category = categoryList.find(c => String(c.id) === String(id));
+  return category?.name ?? '';
+};
+  const handleDelete = async (e) =>{
       itemsApi.delete(itemId)
       triggerUpdate()
       navigate('/catalog')
   
     }
 
+  const handleAddCategory= async (e)=>{
+    if (selectedCategory.id==='null') return
+    setFormData({...formData, category: formData.Category.push({...selectedCategory, id:Number(selectedCategory.id)})})
+    setSelectedCategory({id:'null', name:''})
+  }
+
+  
   useEffect(() => {
     if (itemId) {
       const data = items.find(item => item.id === Number(itemId))
+
       if (data) setFormData({
         ...data,
         category_id: data.category_id ? String(data.category_id) : 'null',
-        measure_id: data.measure_id ? String(data.measure_id) : '1',
       })
+
+
     }
   }, [items, itemId])
+
+
+  
+  const updateCategoryList = (data) => {
+  const availableCategories = categories.filter(
+    category =>
+      !data.Category?.some(selected => selected.id === category.id)
+  );
+
+  setCategoryList(availableCategories);
+};
+
+useEffect(() => {
+  updateCategoryList(formData);
+}, [formData]);
+
+
+
+
 
   return (
     <Box p="6" style={{ maxWidth: 600, margin: '0 auto' }}>
@@ -100,44 +125,6 @@ const ItemDataForm = () => {
               <TextField.Root mt="1" id="name" name="name" value={formData.name} onChange={handleChange} placeholder="Item name" />
             </Box>
 
-            
-            {/* Price */}
-            <Box>
-              <Text as="label" size="2" weight="medium" htmlFor="price">Price</Text>
-              <TextField.Root mt="1" id="price" type="number" name="price" value={formData.price} onChange={handleChange} placeholder="0" />
-            </Box>
-
-            {/* Barcode */}
-            <Box>
-              <Flex align="center" justify="between" mb="1">
-                <Text size="2" weight="medium">Barcode</Text>
-                <Flex align="center" gap="2">
-                  <Text size="1" color="gray">Manual entry</Text>
-                  <Switch
-                    size="1"
-                    checked={manualBarcode}
-                    onCheckedChange={(checked) => {
-                      setManualBarcode(checked)
-                      if (!checked) setFormData(prev => ({ ...prev, barcode: '' }))
-                    }}
-                  />
-                </Flex>
-              </Flex>
-              <TextField.Root
-                name="barcode"
-                value={formData.barcode}
-                onChange={handleChange}
-                disabled={!manualBarcode}
-                placeholder={manualBarcode ? 'Enter barcode' : 'Auto generated'}
-              />
-            </Box>
-
-            {/* Description */}
-            <Box>
-              <Text as="label" size="2" weight="medium" htmlFor="description">Description</Text>
-              <TextArea mt="1" id="description" name="description" value={formData.description} onChange={handleChange} placeholder="Item description" />
-            </Box>
-
             {/* Image URL */}
             <Box>
               <Text as="label" size="2" weight="medium" htmlFor="img_file">Image Upload</Text>
@@ -146,49 +133,37 @@ const ItemDataForm = () => {
 
             <Separator size="4" />
 
-            {/* Quantity + Stock */}
-            <Flex gap="4">
-              <Box style={{ flex: 1 }}>
-                <Text as="label" size="2" weight="medium" htmlFor="quantity">Quantity</Text>
-                <TextField.Root mt="1" id="quantity" type="number" name="quantity" value={formData.quantity} onChange={handleChange} />
-              </Box>
-              <Box style={{ flex: 1 }}>
-                <Text as="label" size="2" weight="medium" htmlFor="stock">Stock</Text>
-                <TextField.Root mt="1" id="stock" type="number" name="stock" value={formData.stock} onChange={handleChange} />
-              </Box>
-            </Flex>
 
             {/* Measure + Category */}
-            <Flex gap="4">
-              <Box style={{ flex: 1 }}>
-                <Text size="2" weight="medium" mb="1">Measure</Text>
-                <Select.Root value={String(formData.measure_id)} onValueChange={(val) => setFormData(prev => ({ ...prev, measure_id: val }))}>
-                  <Select.Trigger style={{ width: '100%' }} />
-                  <Select.Content>
-                    <Select.Group>
-                      <Select.Label>Measurements</Select.Label>
-                      {measures.map(measure => (
-                        <Select.Item key={measure.id} value={String(measure.id)}>{measure.measure}</Select.Item>
-                      ))}
-                    </Select.Group>
-                  </Select.Content>
-                </Select.Root>
-              </Box>
-
+            <Flex gap="4" style={{display:"flex", flexDirection:"column"}}>
+            
               <Box style={{ flex: 1 }}>
                 <Text size="2" weight="medium" mb="1">Category</Text>
-                <Select.Root value={String(formData.category_id)} onValueChange={(val) => setFormData(prev => ({ ...prev, category_id: val }))}>
-                  <Select.Trigger style={{ width: '100%' }} />
+                <Box style={{display:"flex"}}>
+                  <Select.Root value={String(selectedCategory.id)} onValueChange={(val) => setSelectedCategory(prev => ({ ...prev,id:val, name: getName(val) }))}>
+                  <Select.Trigger style={{ width: '50%' }} />
                   <Select.Content>
                     <Select.Group>
                       <Select.Label>Categories</Select.Label>
                       <Select.Item value="null">None</Select.Item>
-                      {categories.map(category => (
+                      {categoryList.map(category => (
                         <Select.Item key={category.id} value={String(category.id)}>{category.name}</Select.Item>
                       ))}
                     </Select.Group>
                   </Select.Content>
                 </Select.Root>
+                <Button type="button" onClick={()=>handleAddCategory()}>Add</Button>
+
+
+                </Box>
+              </Box>
+
+              <Box>
+                
+                { formData.Category?.map((category)=>(
+                  <Card key={category.id}>{category.name}</Card>))
+                  }     
+ 
               </Box>
             </Flex>
 
@@ -208,4 +183,4 @@ const ItemDataForm = () => {
   )
 }
 
-export default ItemDataForm
+export default FamilyEdit

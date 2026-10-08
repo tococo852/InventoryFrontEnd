@@ -107,11 +107,12 @@ const VariantSelector = ({productId,variantGroups,selectedItemId, setSelectedIte
   if (error) return <p>Could not load the product options.</p>;
   if (!family || loading || !selectedItem) return <p>loading</p>;
 
-
   return (
           <Flex direction="column" gap="4" style={{ flex: "1.2", minWidth: "260px" }}>
             {/* Variant groups */}
+
             {variantGroups.map((group) => (
+              
               <Flex key={group.id} direction="column" gap="2">
                 <Text size="2" weight="medium" style={{ textTransform: "capitalize" }}>
                   {group.name}

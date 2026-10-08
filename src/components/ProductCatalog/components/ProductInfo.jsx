@@ -20,9 +20,6 @@ import VariantSelector from "../../variantSelector/VariantSelector";
 const FALLBACK_IMAGE =
   "https://res.cloudinary.com/dz3iqsynp/image/upload/v1779125377/no-image_gkt5oj.webp";
 
-// Turns an item's Variant list into { [groupId]: variantId }
-const getSelection = (item) =>
-  Object.fromEntries(item.Variant.map((v) => [v.variant_group_id, v.id]));
 
 const ProductInfo = () => {
   const { items } = useCatalog();
