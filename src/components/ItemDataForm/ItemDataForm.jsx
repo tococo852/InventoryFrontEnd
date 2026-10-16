@@ -11,24 +11,22 @@ const ItemDataForm = () => {
 
   return (
     <Box p="6" style={{ maxWidth: 600, margin: "0 auto", display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
-      <Flex gap="3" mb="5">
+      {itemId &&(<Flex gap="3" mb="5">
         <Button
           variant={toggle === "family" ? "solid" : "outline"}
           onClick={() => setToggle("family")}
         >
-          Edit Family
+        Edit Item Group
         </Button>
 
-        {itemId &&(<Button
+        <Button
           variant={toggle === "variant" ? "solid" : "outline"}
           onClick={() => setToggle("variant")}
         >
-          Edit Variant
-        </Button>)}
+          Edit Item
+        </Button>
 
-        
-        
-      </Flex>
+      </Flex>)}
 
       {toggle === "family" ? <FamilyEdit /> : <VariantEdit />}
     </Box>
