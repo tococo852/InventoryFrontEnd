@@ -10,7 +10,13 @@ import {
   Heading,
   Separator,
   Badge,
+  Callout,
+  Select,
+  TextArea
 } from "@radix-ui/themes";
+
+import { InfoCircledIcon } from '@radix-ui/react-icons';
+
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { itemsApi } from "../../api/itemsApi";
@@ -18,6 +24,7 @@ import {variantGroupApi} from "../../api/variantApi"
 import FamilyCategorySelector from "./FamilyCategorySelector";
 import VariantGroupSelector from "./VariantGroupSelector";
 import VariantPicker from "./VariantPicker";
+import { Description } from "@radix-ui/themes/components/alert-dialog";
 const FamilyEdit = () => {
   const navigate = useNavigate();
 
@@ -28,11 +35,13 @@ const FamilyEdit = () => {
     updateItem,
     variants,
     triggerUpdate,
+    measures
   } = useCatalog();
 
   const [manualBarcode, setManualBarcode] = useState(false);
   const { itemId } = useParams();
   const [selectedGroups, setSelectedGroups] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
 
   const isEditing = !!itemId;
@@ -43,6 +52,8 @@ const FamilyEdit = () => {
     img_file: null,
     Category: [],
     variant_list: [],
+    measure_id:'',
+    description:''
   });
 
   const handleChange = (e) => {
@@ -51,22 +62,37 @@ const FamilyEdit = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
+  const validSelection=()=>{
+      return !selectedGroups.some(
+        Vgroup=>Vgroup.Variant.length===0
+      )
+    }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if(validSelection()){
+        const cleanedData = {
+              ...formData,
+              variant_list:selectedGroups
+            };
+            if (isEditing) {
+              await updateItem(Number(itemId), cleanedData);
+            } else {
+                await addItem(cleanedData);
+            }
+            triggerUpdate();
+            setErrorMessage("")
+            console.log(cleanedData)
+    }else{
+        setErrorMessage("Actualizacion Fallida, Debes seleccionar por lo menos una variante por grupo, o deseleccionar el grupo vacio")
 
-    const cleanedData = {
-      ...formData,
-      variant_list:selectedGroups
-    };
+    }
 
-   // if (isEditing) {
-    //  await updateItem(Number(itemId), cleanedData);
-   // } else {
-    //  await addItem(cleanedData);
-    //}
+    
 
-    triggerUpdate();
+    
+
+   
   };
   const handleDelete = async () => {
     await itemsApi.delete(itemId);
@@ -188,8 +214,19 @@ const FamilyEdit = () => {
               />
             </Box>
 
-            <Separator size="4" />
+              {!itemId && ( 
+                <>
+                <Separator size="4" />
+                <Box>
+                  <Text as="label" size="2" weight="medium" htmlFor="description">Description</Text>
+                  <TextArea mt="1" id="description" name="description" value={formData.description} onChange={handleChange} placeholder="Item description" />
+                </Box>
+                </>    
+            
+          )}
 
+
+            <Separator size="4" />
             {/* Categories */}
             <FamilyCategorySelector
               categories={categories}
@@ -201,6 +238,21 @@ const FamilyEdit = () => {
                 }))
               }
             />
+
+            <Box style={{ flex: 1 }}>
+              <Text size="2" weight="medium" mb="1">Measure</Text>
+               <Select.Root value={String(formData.measure_id)} onValueChange={(val) => setFormData(prev => ({ ...prev, measure_id: val }))}>
+                  <Select.Trigger style={{ width: '100%' }} />
+                  <Select.Content>
+                  <Select.Group>
+                  <Select.Label>Measurements</Select.Label>
+                      {measures.map(measure => (
+                        <Select.Item key={measure.id} value={String(measure.id)}>{measure.measure}</Select.Item>
+                      ))}
+                  </Select.Group>
+                </Select.Content>
+              </Select.Root>
+            </Box>
 
             {/* Variant group selector will go here */}
             <Separator size="4" />
@@ -219,7 +271,26 @@ const FamilyEdit = () => {
             />
 
             {/* Form actions */}
+
+            {errorMessage && (
+                
+
+              <Callout.Root
+              size={"1"}
+              variant={"soft"}
+              color={"red"}
+              >
+                <Callout.Icon>
+                  <InfoCircledIcon />
+                </Callout.Icon>
+                <Callout.Text>
+                    {errorMessage}
+                </Callout.Text>
+              </Callout.Root>
+
+          )}
             <Flex justify="end" gap="3">
+
               <Button
                 variant="outline"
                 type="button"
@@ -237,9 +308,9 @@ const FamilyEdit = () => {
                   Delete
                 </Button>
               )}
-
+              
               <Button
-                disabled={formData.name === ""}
+                disabled={formData.name === "" }
                 type="submit"
               >
                 {isEditing ? "Update Item" : "Add Item"}

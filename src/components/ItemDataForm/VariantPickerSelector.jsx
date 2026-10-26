@@ -50,7 +50,7 @@ const VariantPickerSelector = ({
         originalGroup.id === group.id
           ? {
               ...originalGroup,
-              Variant: originalGroup.variant.filter(
+              Variant: originalGroup.Variant.filter(
                 (variant) => variant.id !== variantId
               ),
             }

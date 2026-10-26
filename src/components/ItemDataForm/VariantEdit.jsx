@@ -212,21 +212,6 @@ const VariantEdit = () => {
                 </Select.Root>
               </Box>
 
-              <Box style={{ flex: 1 }}>
-                <Text size="2" weight="medium" mb="1">Category</Text>
-                <Select.Root value={String(formData.category_id)} onValueChange={(val) => setFormData(prev => ({ ...prev, category_id: val }))}>
-                  <Select.Trigger style={{ width: '100%' }} />
-                  <Select.Content>
-                    <Select.Group>
-                      <Select.Label>Categories</Select.Label>
-                      <Select.Item value="null">None</Select.Item>
-                      {categories.map(category => (
-                        <Select.Item key={category.id} value={String(category.id)}>{category.name}</Select.Item>
-                      ))}
-                    </Select.Group>
-                  </Select.Content>
-                </Select.Root>
-              </Box>
             </Flex>
 
 

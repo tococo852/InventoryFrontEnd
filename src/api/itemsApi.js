@@ -10,19 +10,48 @@ export const itemsApi = {
     return res.data
   },
   async add(item) {
-    const formData = new FormData()
-    Object.entries(item).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) formData.append(key, value)
-    })
-    const res = await api.post('/items', formData)
-    return res.data
-  },
+  const formData = new FormData()
+
+  Object.entries(item).forEach(([key, value]) => {
+    if (value !== null && value !== undefined) {
+      // If the value is a File object, append it directly
+      if (value instanceof File) {
+        formData.append(key, value)
+      } 
+      // If it's an object or array (like Category or variant_list), convert to JSON string
+      else if (typeof value === 'object') {
+        formData.append(key, JSON.stringify(value))
+      } 
+      // Primitive values (strings, numbers, booleans)
+      else {
+        formData.append(key, value)
+      }
+    }
+  })
+
+  const res = await api.post('/items', formData)
+  return res.data
+},
   async update(id, item) {
 
     const formData = new FormData()
-    Object.entries(item).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) formData.append(key, value)
-    })
+    
+  Object.entries(item).forEach(([key, value]) => {
+    if (value !== null && value !== undefined) {
+      // If the value is a File object, append it directly
+      if (value instanceof File) {
+        formData.append(key, value)
+      } 
+      // If it's an object or array (like Category or variant_list), convert to JSON string
+      else if (typeof value === 'object') {
+        formData.append(key, JSON.stringify(value))
+      } 
+      // Primitive values (strings, numbers, booleans)
+      else {
+        formData.append(key, value)
+      }
+    }
+  })
     const res = await api.put(`/items/${id}`, formData)
     return res.data
   },

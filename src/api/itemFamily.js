@@ -15,7 +15,7 @@ export const itemsFamilyApi = {
     Object.entries(item).forEach(([key, value]) => {
       if (value !== null && value !== undefined) formData.append(key, value)
     })
-    const res = await api.put(`/items/${id}`, formData)
+    const res = await api.put(`/items/family/${id}`, formData)
     return res.data
   },
   async delete(id) {
